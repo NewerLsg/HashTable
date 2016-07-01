@@ -19,18 +19,18 @@ typedef struct _hs_data_node
 
 typedef struct _hs_bucket_node
 {
-		hs_data_node *head;
+	hs_data_node *head;
 }hs_bucket_node;
 
 typedef struct _hash_table
 {
-		key_t key;
-		unsigned int bucketsize;
-		unsigned int maxsize;
-		unsigned int freesize;
-		hs_bucket_node *bucket;
-		hs_data_node *free;
-		unsigned long (*hashfunc)(char*);
+	key_t key;
+	unsigned int bucketsize;
+	unsigned int maxsize;
+	unsigned int freesize;
+	hs_bucket_node *bucket;
+	hs_data_node *free;
+	unsigned long (*hashfunc)(char*);
 }hash_table;
 
 void* hs_init( int buckets, int maxsize);

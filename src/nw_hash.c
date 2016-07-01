@@ -124,7 +124,7 @@ hs_remove(hash_table *hstable, char *key)
 {
 	hs_data_node *node = hs_fetch_data_node(hstable, key, 1);
 
-   return	hs_release_node(hstable, node);
+	return	hs_release_node(hstable, node);
 }
 
 int 
@@ -140,22 +140,21 @@ hs_destroy(hash_table **hstable)
  hs_data_node* 
  hs_fetch_free_node(hash_table *hstable) 
  {
- 		if (hstable->freesize <= 0 || hstable->free == NULL) {
- 			printf("no free node!\n");
- 			return NULL;
- 		}
- 	   hs_data_node *free_node = hstable->free;	
+	if (hstable->freesize <= 0 || hstable->free == NULL) {
+		printf("no free node!\n");
+		return NULL;
+	}
 
- 	   hstable->free = hstable->free->next;
+	hs_data_node *free_node = hstable->free;	
+	hstable->free = hstable->free->next;
+	hstable->freesize--;
 
- 	   hstable->freesize--;
+	return free_node;
+}
 
- 	   return free_node;
- }
-
- int 
- hs_release_node(hash_table *hstable, hs_data_node* node) 
- {
+int 
+hs_release_node(hash_table *hstable, hs_data_node* node)
+{
  	if (hstable == NULL || node == NULL) return -1;
 
  	hstable->freesize++;
@@ -163,11 +162,12 @@ hs_destroy(hash_table **hstable)
  	hstable->free = node;
 
  	return 0;
- }
+}
 
 void 
-hs_dump_info(hash_table *hstable) {
- 	if (hstable == NULL) return ;
+hs_dump_info(hash_table *hstable)
+{
+	if (hstable == NULL) return ;
 
  	printf("bucketsize:%d\n", hstable->bucketsize);
  	printf("maxsize:%d\n", hstable->maxsize);

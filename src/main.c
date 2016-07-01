@@ -1,5 +1,4 @@
 #include "nw_hash.h"
-
 #include<stdio.h>
 
 int main(int argc, char const *argv[])
@@ -24,7 +23,7 @@ int main(int argc, char const *argv[])
 
 	hs_dump_info(hstable);
 
-   hs_destroy(&hstable);
+	hs_destroy(&hstable);
 
 	printf("process done.\n");
 
