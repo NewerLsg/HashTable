@@ -26,12 +26,12 @@ hs_init(int bucketsize, int maxsize)
 		return NULL;
 	}  
 
-	hash_table *hstable  = (hash_table *) ptr;
-	hstable->key 					= key;
+	hash_table *hstable	= (hash_table *) ptr;
+	hstable->ke		= key;
 	hstable->bucketsize	= bucketsize;
-	hstable->maxsize		= hstable->freesize		= maxsize;
-	hstable->bucket 		   = (hs_bucket_node *) (ptr + sizeof(hash_table));
-	hstable->hashfunc    = ELFHash;
+	hstable->maxsize	= hstable->freesize	= maxsize;
+	hstable->bucket 	= (hs_bucket_node *) (ptr + sizeof(hash_table));
+	hstable->hashfun	= ELFHash;
 
 	int i = 0;
 	for (; i < bucketsize; ++i) {
