@@ -1,4 +1,4 @@
-INC=.
+INC=-I.
 
 LIBS=-L. -lnw_hash
 
@@ -12,28 +12,19 @@ OUTPUT=main libnw_hash.so libnw_hash.a
 
 all:$(OUTPUT)
 
-#main:main.o
-#	gcc -g $^ -o $@ -L. -lnw_hash 
-
-#libnw_hash.so:nw_hash.o
-#	gcc -fPIc -shared -g $^ -o $@
-
-#libnw_hash.a:nw_hash.o
-#	ar -crl  -$^
-
 .SUFFIXES:.o .c .so .a
 
 .c.o:
-	gcc -fPIc $(INC) -g -c $^
+	gcc -fPIC $(INC) -g -c $^
 
-.so.a:
-	gcc -g -fPIc -shared $(INC) lib$@ $^ 
+main:main.o libnw_hash.so
+	gcc -g $^ -o $@ -L. -lnw_hash 
 
-.o.a:
-	ar -crl lib$@ $^
+libnw_hash.so:nw_hash.o
+	gcc -fPIc -shared -g $^ -o $@
 
-.o:
-	gcc -o $@  $^ $(LIBS) 
+libnw_hash.a:nw_hash.o
+	ar -rcs $@ $^
 
 clean:
 	rm -f *.o *.a *.so  $(OUTPUT) 
